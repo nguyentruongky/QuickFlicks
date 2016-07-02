@@ -8,28 +8,51 @@
 
 import UIKit
 
-class NowPlayingViewController: UIViewController {
+class NowPlayingViewController: UIViewController, ShowMovieDetailDelegate {
 
+    var loadingAnimationView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    var isLoading = false
+    lazy var movies = [Movie]()
+    var page = 1
+    var totalPages = 2
+    
+    @IBOutlet weak var movieGallery: MovieGallery!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        loadingAnimationView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        movieGallery.setupData("https://api.themoviedb.org/3/movie/now_playing")
+        movieGallery.delegate = self
     }
     
+    func loadMoreMovies() {
+        
+        guard isLoading == false else { print("return at isloading"); return }
+        
+        guard page < totalPages else { print("return at page < totalpages"); return }
+        
+        isLoading = true 
+        isLoading = true
+        NowPlayingCommunicator.getData("https://api.themoviedb.org/3/movie/now_playing", page: page, successAction: { [unowned self] (movies, currentPage, totalPage) in
+            self.isLoading = false
+            self.view.stopLoading()
+            self.page += 1
+            self.totalPages = totalPage
+            self.movies.appendContentsOf(movies)
+            self.collectionView.reloadData()
+            print(self.page)
+        }) {
+            self.isLoading = false 
+            self.view.stopLoading()
+            print("fail roi")
+        }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
-    */
+    
+    func didShowMovieDetail(controller: UIViewController) {
+        navigationController?.pushViewController(controller, animated: true)
+    }
 
 }
