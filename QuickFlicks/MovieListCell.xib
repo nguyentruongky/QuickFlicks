@@ -8,14 +8,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieListCell" rowHeight="120" id="mg2-DH-gF2" customClass="MovieListCell" customModule="QuickFlicks" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MovieListCell" rowHeight="120" id="mg2-DH-gF2" customClass="MovieListCell" customModule="QuickFlicks" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mg2-DH-gF2" id="l3V-ge-cnl">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="edd-pL-K6d">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="edd-pL-K6d">
                         <rect key="frame" x="0.0" y="0.0" width="106.5" height="119.5"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvx-Ng-YJi">
@@ -25,7 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Overview" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAG-QO-fh3">
-                        <rect key="frame" x="122.5" y="53" width="181.5" height="50.5"/>
+                        <rect key="frame" x="122.5" y="41" width="181.5" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -40,8 +40,8 @@
                     <constraint firstItem="edd-pL-K6d" firstAttribute="width" secondItem="l3V-ge-cnl" secondAttribute="width" multiplier="1/3" id="TnU-bq-Yb0"/>
                     <constraint firstAttribute="trailing" secondItem="wvx-Ng-YJi" secondAttribute="trailing" constant="16" id="bXl-xi-rZl"/>
                     <constraint firstItem="edd-pL-K6d" firstAttribute="top" secondItem="l3V-ge-cnl" secondAttribute="top" id="drL-ct-OHV"/>
-                    <constraint firstItem="HAG-QO-fh3" firstAttribute="top" secondItem="wvx-Ng-YJi" secondAttribute="bottom" constant="16" id="ffL-C8-ScK"/>
-                    <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="HAG-QO-fh3" secondAttribute="bottom" constant="16" id="rg4-mm-J7q"/>
+                    <constraint firstItem="HAG-QO-fh3" firstAttribute="top" secondItem="wvx-Ng-YJi" secondAttribute="bottom" constant="4" id="ffL-C8-ScK"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="HAG-QO-fh3" secondAttribute="bottom" constant="16" id="rg4-mm-J7q"/>
                     <constraint firstItem="HAG-QO-fh3" firstAttribute="leading" secondItem="edd-pL-K6d" secondAttribute="trailing" constant="16" id="vRJ-no-xSW"/>
                 </constraints>
             </tableViewCellContentView>

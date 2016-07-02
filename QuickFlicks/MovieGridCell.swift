@@ -13,10 +13,6 @@ import UIKit
 class MovieGridCell: UICollectionViewCell {
 
     @IBOutlet weak var thumbnailImageView: UIImageView!
-    override func awakeFromNib() {
-        thumbnailImageView.awakeFromNib()
-    }
-    
     
     override func prepareForReuse() {
         thumbnailImageView.image = nil

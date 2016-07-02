@@ -30,6 +30,10 @@ class MovieDetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
     
     var data: Movie!
+    
+    override func viewDidAppear(animated: Bool) {
+        navigationController?.navigationBarHidden = false
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -35,7 +35,7 @@ extension MovieGallery : UICollectionViewDelegate, UICollectionViewDataSource {
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView.isAtBottom {
-            loadMoreMovies()
+            delegate?.loadMoreMovies()
         }
     }
 }

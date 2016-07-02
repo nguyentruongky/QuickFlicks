@@ -11,6 +11,45 @@ import Alamofire
 
 struct NowPlayingCommunicator {
     
+    static func search(keyword: String, successAction: (ids: [Int], totalPage: Int) -> ()) {
+        
+        Alamofire.request(.GET, "https://api.themoviedb.org/3/search/keyword", parameters: ["api_key": apiKey, "query": keyword])
+        .responseJSON { response in
+        
+            
+            if let value = response.result.value {
+                let totalPages = value["total_pages"] as! Int
+                let results = value["results"] as! [AnyObject]
+                var ids = [Int]()
+                for result in results {
+                    let id = result["id"] as! Int
+                    ids.append(id)
+                }
+    
+                successAction(ids: ids, totalPage: totalPages)
+            }
+        }
+    }
+    
+    static func getDetailWithMovieId(id: Int, successHandler: (runTime: Int) -> (), failHandler: () -> ()) {
+        
+        Alamofire.request(.GET, "https://api.themoviedb.org/3/movie/\(id)", parameters: ["api_key": apiKey])
+            .responseJSON { response in
+                
+                // check return code here
+                
+                if let value = response.result.value {
+                    
+                    let runtime = value["runtime"] as! Int
+                    successHandler(runTime: runtime)
+                }
+        }
+        
+    }
+    
+    
+
+    
     static func getData(api: String, page: Int, successAction: (movies: [Movie], currentPage: Int, totalPage: Int) -> Void, failAction: () -> ()) {
         
         Alamofire.request(.GET, api, parameters: ["api_key": apiKey, "page": page])
