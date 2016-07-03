@@ -18,15 +18,16 @@ class MovieListCell: UITableViewCell {
     @IBOutlet weak var overviewLabel: UILabel!
  
     func setupData(movie: Movie) {
+        let api = smallPoster + movie.posterUrl
+        posterImageView.af_setImageWithURL(NSURL(string: api)!)
         
         titleLabel.text = movie.title
         overviewLabel.text = movie.overview
-        let api = smallPoster + movie.posterUrl
-        Alamofire.request(.GET, api)
-            .responseImage { [unowned self] response in
-                if let image = response.result.value {
-                    self.posterImageView.image = image
-                }
-        }
+//        Alamofire.request(.GET, api)
+//            .responseImage { [unowned self] response in
+//                if let image = response.result.value {
+//                    self.posterImageView.image = image
+//                }
+//        }
     }
 }

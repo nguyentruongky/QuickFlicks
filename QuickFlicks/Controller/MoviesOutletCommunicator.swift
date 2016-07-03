@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-struct NowPlayingCommunicator {
+struct MoviesOutletCommunicator {
     
     static func search(keyword: String, successAction: (ids: [Int], totalPage: Int) -> ()) {
         
@@ -31,7 +31,7 @@ struct NowPlayingCommunicator {
         }
     }
     
-    static func getDetailWithMovieId(id: Int, successHandler: (runTime: Int) -> (), failHandler: () -> ()) {
+    static func getDetailWithMovieId(id: Int, successHandler: (movie: Movie) -> (), failHandler: () -> ()) {
         
         Alamofire.request(.GET, "https://api.themoviedb.org/3/movie/\(id)", parameters: ["api_key": apiKey])
             .responseJSON { response in
@@ -39,9 +39,13 @@ struct NowPlayingCommunicator {
                 // check return code here
                 
                 if let value = response.result.value {
+                
+                    let poster = value["poster_path"] as? String
+                    let backdrop = value["backdrop_path"] as? String
+                    guard backdrop != nil || poster != nil else { return } 
                     
-                    let runtime = value["runtime"] as! Int
-                    successHandler(runTime: runtime)
+                    let movie = Movie(rawData: value)
+                    successHandler(movie: movie)
                 }
         }
         

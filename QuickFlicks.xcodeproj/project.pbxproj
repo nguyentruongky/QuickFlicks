@@ -32,6 +32,7 @@
 		26DB0D161D27EC2E00EAE536 /* MovieListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DB0D151D27EC2E00EAE536 /* MovieListDelegate.swift */; };
 		26DB0D1A1D28705A00EAE536 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DB0D191D28705A00EAE536 /* NowPlayingViewController.swift */; };
 		26DB0D1C1D2872A700EAE536 /* TopRatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DB0D1B1D2872A700EAE536 /* TopRatedViewController.swift */; };
+		26DB0D1E1D287A7700EAE536 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DB0D1D1D287A7700EAE536 /* SearchResultViewController.swift */; };
 		CFD741C7812C46692959FEB4 /* Pods_QuickFlicks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837B1569535A3ADA40EFAE65 /* Pods_QuickFlicks.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		26DB0D151D27EC2E00EAE536 /* MovieListDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListDelegate.swift; sourceTree = "<group>"; };
 		26DB0D191D28705A00EAE536 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		26DB0D1B1D2872A700EAE536 /* TopRatedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopRatedViewController.swift; sourceTree = "<group>"; };
+		26DB0D1D1D287A7700EAE536 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		43515D672AAC2D7D83094315 /* Pods-QuickFlicks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickFlicks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuickFlicks/Pods-QuickFlicks.debug.xcconfig"; sourceTree = "<group>"; };
 		837B1569535A3ADA40EFAE65 /* Pods_QuickFlicks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickFlicks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE08EE1ED968A2FEB3CDA360 /* Pods-QuickFlicks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickFlicks.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuickFlicks/Pods-QuickFlicks.release.xcconfig"; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				26DB0D081D27B68D00EAE536 /* Detail */,
 				26DB0D191D28705A00EAE536 /* NowPlayingViewController.swift */,
 				26DB0D1B1D2872A700EAE536 /* TopRatedViewController.swift */,
+				26DB0D1D1D287A7700EAE536 /* SearchResultViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				2622E3B61D22CDA300852378 /* Resources */,
 				09CC9AC8803B8D71405C6D3E /* Embed Pods Frameworks */,
 				DEBE0D50246AA739CBC0B5AA /* Copy Pods Resources */,
+				26DB0D1F1D29327A00EAE536 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -318,6 +322,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuickFlicks/Pods-QuickFlicks-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		26DB0D1F1D29327A00EAE536 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" da5c34f244239ef30f23ed9618a48c47f4545a62 dec10b87e14aceea38e08584d8ca33b84c497f566a98212663c542daef1239af";
+		};
 		80BF2ACABBBCBC71ABDBDEE5 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -372,6 +389,7 @@
 				264E40A21D257784000F0D8A /* Supporter.swift in Sources */,
 				26DB0D111D27BB7D00EAE536 /* MovieListCell.swift in Sources */,
 				2622E3D91D2325C100852378 /* Movie.swift in Sources */,
+				26DB0D1E1D287A7700EAE536 /* SearchResultViewController.swift in Sources */,
 				26DB0D1C1D2872A700EAE536 /* TopRatedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

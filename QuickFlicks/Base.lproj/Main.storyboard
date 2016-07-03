@@ -24,12 +24,18 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59M-2M-OHC" customClass="MovieList" customModule="QuickFlicks" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <rect key="frame" x="0.0" y="88" width="320" height="480"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="oSB-TV-qPB">
+                            <searchBar contentMode="redraw" placeholder="Search" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oSB-TV-qPB">
                                 <rect key="frame" x="0.0" y="44" width="320" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
                                 <connections>
                                     <outlet property="delegate" destination="g65-W8-EMI" id="j99-sA-ymD"/>
                                 </connections>
@@ -38,25 +44,69 @@
                                 <rect key="frame" x="0.0" y="88" width="320" height="480"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1JM-MY-Nit">
+                                <rect key="frame" x="0.0" y="44" width="320" height="60"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Network error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DKf-Z9-N1J">
+                                        <rect key="frame" x="104.5" y="20" width="111.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V2c-wX-sdu">
+                                        <rect key="frame" x="267" y="15" width="37" height="30"/>
+                                        <state key="normal" title="Retry">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="DKf-Z9-N1J" firstAttribute="centerY" secondItem="1JM-MY-Nit" secondAttribute="centerY" id="1FM-b6-FOv"/>
+                                    <constraint firstItem="V2c-wX-sdu" firstAttribute="leading" secondItem="DKf-Z9-N1J" secondAttribute="trailing" constant="23" id="2Zm-X1-J9J"/>
+                                    <constraint firstAttribute="trailing" secondItem="V2c-wX-sdu" secondAttribute="trailing" constant="16" id="3Nm-Xf-Scn"/>
+                                    <constraint firstAttribute="height" constant="60" id="RwB-WP-eJm"/>
+                                    <constraint firstItem="V2c-wX-sdu" firstAttribute="centerY" secondItem="DKf-Z9-N1J" secondAttribute="centerY" id="WIf-eh-GMi"/>
+                                    <constraint firstItem="DKf-Z9-N1J" firstAttribute="centerX" secondItem="1JM-MY-Nit" secondAttribute="centerX" id="usd-G3-QAi"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="2Zm-X1-J9J"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="59M-2M-OHC" firstAttribute="leading" secondItem="nGb-Ls-Ig4" secondAttribute="leading" id="1Lk-6u-66w"/>
                             <constraint firstAttribute="trailing" secondItem="nIu-BV-qgm" secondAttribute="trailing" id="45A-Ac-76r"/>
+                            <constraint firstAttribute="trailing" secondItem="1JM-MY-Nit" secondAttribute="trailing" id="6Ey-Cy-FOn"/>
                             <constraint firstAttribute="trailing" secondItem="59M-2M-OHC" secondAttribute="trailing" id="Aah-Ip-idc"/>
                             <constraint firstItem="oSB-TV-qPB" firstAttribute="leading" secondItem="nGb-Ls-Ig4" secondAttribute="leading" id="BOT-Zl-F2c"/>
+                            <constraint firstItem="1JM-MY-Nit" firstAttribute="top" secondItem="oSB-TV-qPB" secondAttribute="bottom" id="CO7-sX-c4S"/>
                             <constraint firstItem="cBM-U3-pmu" firstAttribute="leading" secondItem="nGb-Ls-Ig4" secondAttribute="leading" id="E5E-Os-mSW"/>
                             <constraint firstItem="oSB-TV-qPB" firstAttribute="top" secondItem="yBZ-od-QfG" secondAttribute="bottom" id="J1B-2f-1L4"/>
                             <constraint firstItem="59M-2M-OHC" firstAttribute="top" secondItem="yBZ-od-QfG" secondAttribute="bottom" id="NmZ-Xp-6QK"/>
+                            <constraint firstItem="59M-2M-OHC" firstAttribute="top" secondItem="oSB-TV-qPB" secondAttribute="bottom" id="PPZ-Eh-T6w"/>
                             <constraint firstItem="7gm-et-FAU" firstAttribute="top" secondItem="nIu-BV-qgm" secondAttribute="bottom" id="QAU-uQ-QC7"/>
                             <constraint firstAttribute="trailing" secondItem="cBM-U3-pmu" secondAttribute="trailing" id="SBj-td-SHe"/>
+                            <constraint firstAttribute="trailing" secondItem="oSB-TV-qPB" secondAttribute="trailing" id="ZAK-Zq-KOa"/>
                             <constraint firstItem="nIu-BV-qgm" firstAttribute="top" secondItem="yBZ-od-QfG" secondAttribute="bottom" id="cNI-Zu-IaA"/>
+                            <constraint firstItem="1JM-MY-Nit" firstAttribute="top" secondItem="yBZ-od-QfG" secondAttribute="bottom" id="esC-5U-tVT"/>
                             <constraint firstItem="7gm-et-FAU" firstAttribute="top" secondItem="59M-2M-OHC" secondAttribute="bottom" id="fc9-qK-206"/>
                             <constraint firstItem="cBM-U3-pmu" firstAttribute="top" secondItem="oSB-TV-qPB" secondAttribute="bottom" id="hdD-8f-iSx"/>
                             <constraint firstItem="nIu-BV-qgm" firstAttribute="leading" secondItem="nGb-Ls-Ig4" secondAttribute="leading" id="i6L-Kf-87W"/>
-                            <constraint firstAttribute="trailing" secondItem="oSB-TV-qPB" secondAttribute="trailing" id="rr0-1f-8NS"/>
+                            <constraint firstItem="1JM-MY-Nit" firstAttribute="leading" secondItem="nGb-Ls-Ig4" secondAttribute="leading" id="oRn-dd-vMb"/>
+                            <constraint firstAttribute="trailing" secondItem="oSB-TV-qPB" secondAttribute="trailing" constant="100" id="rr0-1f-8NS"/>
                             <constraint firstItem="7gm-et-FAU" firstAttribute="top" secondItem="cBM-U3-pmu" secondAttribute="bottom" id="uJX-1E-NS4"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="rr0-1f-8NS"/>
+                                <exclude reference="CO7-sX-c4S"/>
+                                <exclude reference="NmZ-Xp-6QK"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="puP-Gu-Trd">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="yJj-D9-jqj">
@@ -72,24 +122,17 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="errorMessageLabel" destination="DKf-Z9-N1J" id="cUN-2u-l2D"/>
+                        <outlet property="errorView" destination="1JM-MY-Nit" id="5Oi-HX-KZD"/>
                         <outlet property="movieGallery" destination="nIu-BV-qgm" id="3nG-AK-Qoy"/>
                         <outlet property="movieList" destination="59M-2M-OHC" id="ovb-Wf-YRd"/>
-                        <outlet property="seachbar" destination="oSB-TV-qPB" id="jMO-al-B8P"/>
-                        <outlet property="searchDisplayController" destination="8Ls-Yd-MSO" id="Hbn-2G-9yu"/>
+                        <outlet property="retryButton" destination="V2c-wX-sdu" id="Up3-g6-vep"/>
+                        <outlet property="searchBar" destination="oSB-TV-qPB" id="lrq-9j-vW2"/>
                         <outlet property="tableView" destination="cBM-U3-pmu" id="vcY-za-lRQ"/>
                         <outlet property="viewModeSegment" destination="DH5-MI-6eq" id="9Wh-zd-a93"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pJI-5g-Xzn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="8Ls-Yd-MSO">
-                    <connections>
-                        <outlet property="delegate" destination="g65-W8-EMI" id="QpO-w3-CMU"/>
-                        <outlet property="searchBar" destination="oSB-TV-qPB" id="knA-0a-b7e"/>
-                        <outlet property="searchContentsController" destination="g65-W8-EMI" id="2l2-RM-UXr"/>
-                        <outlet property="searchResultsDataSource" destination="g65-W8-EMI" id="hR8-b4-lVg"/>
-                        <outlet property="searchResultsDelegate" destination="g65-W8-EMI" id="dID-Xi-HfA"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="2332" y="78"/>
         </scene>
