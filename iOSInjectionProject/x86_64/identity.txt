@@ -1,0 +1,2 @@
+/Users/dangquochuy/Library/Developer/Xcode/DerivedData/QuickFlicks-bwflnqtangoigzfzbkoyvkugcwqp/Build/Products/Debug-iphonesimulator/QuickFlicks.app
+
