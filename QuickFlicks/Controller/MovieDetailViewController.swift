@@ -9,71 +9,174 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+import SteviaLayout
 
-class MovieDetailViewController: UIViewController, UIScrollViewDelegate {
+let initDetailView: CGFloat = 200
 
-    @IBOutlet weak var scrollView: UIScrollView!
+class MovieDetailView: UIView {
     
-    @IBOutlet weak var posterImageView: UIImageView!
+    var posterImageView = UIImageView()
+    var contentView = UIView()
+    var titleLabel = UILabel()
+    var dateLabel = UILabel()
+    var rateLabel = UILabel()
+    var timeLabel = UILabel()
+    var overviewLabel = UILabel()
+    var scrollView = UIScrollView()
+    var scrollContent = UIView()
     
-    @IBOutlet weak var titleLabel: UILabel!
+    convenience init() {
+        self.init(frame: CGRectZero)
+        
+        render()
+    }
     
-    @IBOutlet weak var dateLabel: UILabel!
+    func render() {
+        
+        backgroundColor = .whiteColor()
+        
+        // Setup UI, need to clean up later
+        // === BEGIN ===
+        posterImageView.contentMode = .ScaleAspectFill
+        
+        contentView.backgroundColor = UIColor.blackColor()
+        contentView.alpha = 0.8
+        
+        titleSytle(titleLabel)
+        labelStyle(dateLabel)
+        labelStyle(rateLabel)
+        labelStyle(timeLabel)
+        overviewStyle(overviewLabel)
+        // === END ===
+        
+        sv(
+            posterImageView,
+            scrollView.sv(
+                scrollContent.sv(
+                    contentView.sv(
+                        titleLabel,
+                        dateLabel,
+                        rateLabel,
+                        timeLabel,
+                        overviewLabel
+                    )
+                )
+            )
+        )
+        
+        layout(
+            0,
+            |posterImageView|,
+            0
+        )
+        
+        layout(
+            0,
+            |scrollView|,
+            0
+        )
+        
+        scrollView.layout(
+            0,
+            |scrollContent| ~ 600,
+            0
+        )
+        
+        scrollContent.fillV()
+        equalWidths(scrollContent, scrollView)
+        
+        scrollContent.layout(
+            |-32-contentView.height(initDetailView)-32-|,
+            0
+        )
+
+        contentView.layout(
+            0,
+            |-8-titleLabel-8-|,
+            5,
+            |-8-dateLabel-8-|,
+            20,
+            |-8-rateLabel-timeLabel-8-|,
+            5,
+            |-8-overviewLabel-8-|,
+            0
+        )
+    }
     
-    @IBOutlet weak var rateLabel: UILabel!
+    func titleSytle(l: UILabel) {
+        
+        l.textColor = UIColor.whiteColor()
+        l.numberOfLines = 0
+        l.font = UIFont.boldSystemFontOfSize(17)
+    }
     
-    @IBOutlet weak var timeLabel: UILabel!
+    func labelStyle(l: UILabel) {
+        
+        l.textColor = UIColor.whiteColor()
+        l.font = l.font.fontWithSize(13)
+    }
     
-    @IBOutlet weak var overviewLabel: UILabel!
-    @IBOutlet weak var overviewScrollView: UIScrollView!
+    func overviewStyle(l: UILabel) {
+        
+        l.textColor = UIColor.whiteColor()
+        l.font = l.font.fontWithSize(13)
+        l.numberOfLines = 0
+    }
+}
+
+class MovieDetailViewController: UIViewController {
     
-    @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
-    
+    var movieDetailView: MovieDetailView!
     var data: Movie!
     
     override func viewDidAppear(animated: Bool) {
+        
         navigationController?.navigationBarHidden = false
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        titleLabel.text = data.title
-        dateLabel.text = data.releaseDate
-        rateLabel.text = String(data.voteAverage)
         
-        Alamofire.request(.GET, "\(largePoster)\(data.posterUrl)", parameters: ["api_key": apiKey])
-           .responseData { (data) in
-            self.posterImageView.image = UIImage(data: data.data!)
+        on("INJECTION_BUNDLE_NOTIFICATION") {
+            self.view = MovieDetailView()
         }
+
+        self.view = MovieDetailView()
+        movieDetailView = view as! MovieDetailView
         
-        overviewLabel.text = data.overview + data.overview + data.overview
-        scrollView.delegate = self
-        contentViewHeight.constant = UIScreen.mainScreen().bounds.height
-        overviewScrollView.scrollEnabled = false
-        
+        movieDetailView.titleLabel.text = data.title
+        movieDetailView.dateLabel.text = data.releaseDate
+        movieDetailView.rateLabel.text = String(data.voteAverage)
+        Alamofire.request(.GET, "\(largePoster)\(data.posterUrl)", parameters: ["api_key": apiKey])
+            
+           .responseData { (data) in
+            self.movieDetailView.posterImageView.image = UIImage(data: data.data!)
+        }
+        movieDetailView.overviewLabel.text = data.overview
         MovieDetailCommunicator.getDetailWithMovieId(data.id, successHandler: { (runTime) in
+            
             let h = runTime / 60
             let m = runTime % 60
             let min = m % 60 == 0 ? "" : "\(m) mins"
-            self.timeLabel.text = "\(h) hr \(min)"
-            }) { 
-                
+            self.movieDetailView.timeLabel.text = "\(h) hr \(min)"
+            }) {
         }
-    }
-
-
-    func scrollViewDidScroll(scrollView: UIScrollView) {
         
-        if self.scrollView == scrollView {
-        
-            if scrollView.contentOffset.y  == 0 {
-                UIView.animateWithDuration(0.5, animations: { 
-                    self.overviewScrollView.contentOffset.y = 0
-                })
-            }
-            overviewScrollView.scrollEnabled = scrollView.contentOffset.y != 0
-        }
+        setScrollViewContentSize()
     }
     
+    func setScrollViewContentSize() {
+        
+        movieDetailView.overviewLabel.sizeToFit()
+        let screenSize = UIScreen.mainScreen().bounds.size
+        let detailViewHeight = movieDetailView.overviewLabel.frame.origin.y + movieDetailView.overviewLabel.bounds.height
+        movieDetailView.contentView.heightConstraint?.constant = detailViewHeight
+        movieDetailView.scrollContent.heightConstraint?.constant = screenSize.height + detailViewHeight - initDetailView
+        self.view.layoutIfNeeded()
+    }
     
+    override func viewWillLayoutSubviews() {
+        
+        setScrollViewContentSize()
+    }
 }
