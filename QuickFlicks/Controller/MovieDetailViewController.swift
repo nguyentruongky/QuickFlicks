@@ -11,6 +11,8 @@ import Alamofire
 import AlamofireImage
 import SteviaLayout
 
+let initDetailView: CGFloat = 200
+
 class MovieDetailView: UIView {
     
     var posterImageView = UIImageView()
@@ -20,6 +22,8 @@ class MovieDetailView: UIView {
     var rateLabel = UILabel()
     var timeLabel = UILabel()
     var overviewLabel = UILabel()
+    var scrollView = UIScrollView()
+    var scrollContent = UIView()
     
     convenience init() {
         self.init(frame: CGRectZero)
@@ -38,28 +42,24 @@ class MovieDetailView: UIView {
         contentView.backgroundColor = UIColor.blackColor()
         contentView.alpha = 0.8
         
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.numberOfLines = 0
-        titleLabel.font = UIFont.boldSystemFontOfSize(17)
-        dateLabel.textColor = UIColor.whiteColor()
-        dateLabel.font = dateLabel.font.fontWithSize(13)
-        rateLabel.textColor = UIColor.whiteColor()
-        rateLabel.font = rateLabel.font.fontWithSize(13)
-        timeLabel.textColor = UIColor.whiteColor()
-        timeLabel.font = timeLabel.font.fontWithSize(13)
-        overviewLabel.textColor = UIColor.whiteColor()
-        overviewLabel.font = overviewLabel.font.fontWithSize(13)
-        overviewLabel.numberOfLines = 0
+        titleSytle(titleLabel)
+        labelStyle(dateLabel)
+        labelStyle(rateLabel)
+        labelStyle(timeLabel)
+        overviewStyle(overviewLabel)
         // === END ===
         
         sv(
-            posterImageView.sv(
-                contentView.sv(
-                    titleLabel,
-                    dateLabel,
-                    rateLabel,
-                    timeLabel,
-                    overviewLabel
+            posterImageView,
+            scrollView.sv(
+                scrollContent.sv(
+                    contentView.sv(
+                        titleLabel,
+                        dateLabel,
+                        rateLabel,
+                        timeLabel,
+                        overviewLabel
+                    )
                 )
             )
         )
@@ -70,11 +70,26 @@ class MovieDetailView: UIView {
             0
         )
         
-        posterImageView.layout(
-            |-32-contentView.height(150)-32-|,
+        layout(
+            0,
+            |scrollView|,
             0
         )
         
+        scrollView.layout(
+            0,
+            |scrollContent| ~ 600,
+            0
+        )
+        
+        scrollContent.fillV()
+        equalWidths(scrollContent, scrollView)
+        
+        scrollContent.layout(
+            |-32-contentView.height(initDetailView)-32-|,
+            0
+        )
+
         contentView.layout(
             0,
             |-8-titleLabel-8-|,
@@ -88,23 +103,24 @@ class MovieDetailView: UIView {
         )
     }
     
-    func fieldStyle(f:UITextField) {
-        f.borderStyle = .RoundedRect
-        f.font = UIFont(name: "HelveticaNeue-Light", size: 26)
-        f.returnKeyType = .Next
+    func titleSytle(l: UILabel) {
+        
+        l.textColor = UIColor.whiteColor()
+        l.numberOfLines = 0
+        l.font = UIFont.boldSystemFontOfSize(17)
     }
     
-    func passwordFieldStyle(f:UITextField) {
-        f.secureTextEntry = true
-        f.returnKeyType = .Done
+    func labelStyle(l: UILabel) {
+        
+        l.textColor = UIColor.whiteColor()
+        l.font = l.font.fontWithSize(13)
     }
     
-    func buttonSytle(b:UIButton) {
-        b.backgroundColor = .lightGrayColor()
-    }
-    
-    func loginTapped() {
-        //Do something
+    func overviewStyle(l: UILabel) {
+        
+        l.textColor = UIColor.whiteColor()
+        l.font = l.font.fontWithSize(13)
+        l.numberOfLines = 0
     }
 }
 
@@ -145,5 +161,22 @@ class MovieDetailViewController: UIViewController {
             self.movieDetailView.timeLabel.text = "\(h) hr \(min)"
             }) {
         }
+        
+        setScrollViewContentSize()
+    }
+    
+    func setScrollViewContentSize() {
+        
+        movieDetailView.overviewLabel.sizeToFit()
+        let screenSize = UIScreen.mainScreen().bounds.size
+        let detailViewHeight = movieDetailView.overviewLabel.frame.origin.y + movieDetailView.overviewLabel.bounds.height
+        movieDetailView.contentView.heightConstraint?.constant = detailViewHeight
+        movieDetailView.scrollContent.heightConstraint?.constant = screenSize.height + detailViewHeight - initDetailView
+        self.view.layoutIfNeeded()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        
+        setScrollViewContentSize()
     }
 }
